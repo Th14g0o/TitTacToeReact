@@ -87,7 +87,7 @@ const Board = ({ xIsNext, squares, onPlay }: any) => {
   //   setXIsNext(!xIsNext);
   // }
 
-  const handleClick = (i: any) => {
+  const escutarClick = (i: any) => {
     if (calculateWinner(squares) || squares[i]) {
       return;
     }
@@ -112,19 +112,19 @@ const Board = ({ xIsNext, squares, onPlay }: any) => {
     <>
       <div className="status">{status}</div>
       <div className="board-row">
-        <Square value={squares[0]} onSquareClick={() => handleClick(0)} />
-        <Square value={squares[1]} onSquareClick={() => handleClick(1)} />
-        <Square value={squares[2]} onSquareClick={() => handleClick(2)} />
+        <Square value={squares[0]} onSquareClick={() => escutarClick(0)} />
+        <Square value={squares[1]} onSquareClick={() => escutarClick(1)} />
+        <Square value={squares[2]} onSquareClick={() => escutarClick(2)} />
       </div>
       <div className="board-row">
-        <Square value={squares[3]} onSquareClick={() => handleClick(3)} />
-        <Square value={squares[4]} onSquareClick={() => handleClick(4)} />
-        <Square value={squares[5]} onSquareClick={() => handleClick(5)} />
+        <Square value={squares[3]} onSquareClick={() => escutarClick(3)} />
+        <Square value={squares[4]} onSquareClick={() => escutarClick(4)} />
+        <Square value={squares[5]} onSquareClick={() => escutarClick(5)} />
       </div>
       <div className="board-row">
-        <Square value={squares[6]} onSquareClick={() => handleClick(6)} />
-        <Square value={squares[7]} onSquareClick={() => handleClick(7)} />
-        <Square value={squares[8]} onSquareClick={() => handleClick(8)} />
+        <Square value={squares[6]} onSquareClick={() => escutarClick(6)} />
+        <Square value={squares[7]} onSquareClick={() => escutarClick(7)} />
+        <Square value={squares[8]} onSquareClick={() => escutarClick(8)} />
       </div>
     </>
   );
@@ -137,17 +137,17 @@ const Aplicacao = () => {
   const currentSquares = history[currentMove];
   const xIsNext = currentMove % 2 === 0;
 
-  function handlePlay(nextSquares : any) {
+  const escutarPlay = (nextSquares : any) => {
     const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
     setHistory(nextHistory);
     setCurrentMove(nextHistory.length - 1);
   }
 
-  function jumpTo(nextMove : any) {
-    setCurrentMove(nextMove);
+  const pulePara = (proximoMovimento : any) => {
+    setCurrentMove(proximoMovimento);
   }
 
-  const moves = history.map((squares : any, move: any)  => {
+  const movimentos = history.map((squares : any, move: any)  => {
     let description;
     if (move > 0) {
       description = 'Go to move #' + move;
@@ -156,7 +156,7 @@ const Aplicacao = () => {
     }
     return (
       <li key={move}>
-        <button onClick={() => jumpTo(move)}>{description}</button>
+        <button onClick={() => pulePara(move)}>{description}</button>
       </li>
     );
   });
@@ -164,10 +164,10 @@ const Aplicacao = () => {
   return (
     <div className="game">
       <div className="game-board">
-        <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
+        <Board xIsNext={xIsNext} squares={currentSquares} onPlay={escutarPlay} />
       </div>
       <div className="game-info">
-        <ol>{moves}</ol>
+        <ol>{movimentos}</ol>
       </div>
     </div>
   );
